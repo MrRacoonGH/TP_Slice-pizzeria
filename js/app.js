@@ -49,6 +49,47 @@ document.getElementById("createPizzaBtn").addEventListener("click", () => {
     container.appendChild(pizzaItem);
 });
 
+//ajout d'items dans le panier
+
+const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+
+addToCartButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+        const product = {
+            name: `Produit ${index + 1}`,
+            price: (Math.random() * 20).toFixed(2)
+        };
+
+        addToCart(product);
+    });
+});
+
+function addToCart(product) {
+    const basketContainer = document.querySelector(".empty-basket");
+    
+    if (basketContainer.querySelector("img")) {
+        basketContainer.innerHTML = "";
+    }
+
+    const cartItem = document.createElement("div");
+    cartItem.classList.add("cart-item");
+
+    const name = document.createElement("p");
+    name.textContent = product.name;
+
+    const price = document.createElement("p");
+    price.textContent = `$${product.price}`;
+
+    cartItem.appendChild(name);
+    cartItem.appendChild(price);
+    basketContainer.appendChild(cartItem);
+
+    const basketTitle = document.querySelector(".basket-aside h2");
+    const itemCount = document.querySelectorAll(".cart-item").length;
+    basketTitle.textContent = `Votre panier (${itemCount})`;
+
+    console.log(product);
+}
 
 //création d'éllément via data avec aide de raphael
 
@@ -87,27 +128,7 @@ function displayData(data) {
         pizzaItem.appendChild(pizzaInfos);
 
         container.appendChild(pizzaItem);
-
-        addToCartBtn.addEventListener("click", () => addToCart(product));
-        function addToCart(product) {
-            const basket = document.querySelector(".empty-basket");
-            basket.innerHTML = "";
         
-            const cartItem = document.createElement("div");
-            cartItem.classList.add("cart-item");
-        
-            const name = document.createElement("p");
-            name.textContent = product.name;
-        
-            const price = document.createElement("p");
-            price.textContent = `$${product.price.toFixed(2)}`;
-        
-            cartItem.appendChild(name);
-            cartItem.appendChild(price);
-            basket.appendChild(cartItem);
-
-            console.log(product)
-        }        
     });
 }
 
