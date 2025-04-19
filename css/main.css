@@ -305,3 +305,8 @@ body {
     width: 640px;
   }
 }
+
+
+.hidden {
+  display: none;
+}
